@@ -1,0 +1,44 @@
+{
+  "name": "sprockets-stats-webpack-plugin",
+  "version": "0.0.0",
+  "description": "Add sprockets metadata to webpack stats for asset manifest generation.",
+  "main": "index.js",
+  "files": [
+    "index.js"
+  ],
+  "scripts": {
+    "test": "tape ./tests/index.js | ./node_modules/.bin/tf-spec",
+    "lint": "eslint ./tests ./lib",
+    "check": "npm run lint && npm run test"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikechau/sprockets-stats-webpack-plugin.git"
+  },
+  "keywords": [
+    "sprockets",
+    "rails",
+    "assets",
+    "manifest",
+    "webpack",
+    "plugin"
+  ],
+  "author": "Mike Chau (@mikechau)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mikechau/sprockets-stats-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/mikechau/sprockets-stats-webpack-plugin#readme",
+  "devDependencies": {
+    "@tap-format/spec": "git+https://github.com/tap-format/spec.git",
+    "eslint": "^1.10.3",
+    "eslint-config-airbnb": "^2.1.1",
+    "glob": "^6.0.1",
+    "proxyquire": "^1.7.3",
+    "tape": "^4.2.2",
+    "webpack": "^1.12.9"
+  },
+  "optionalDependencies": {
+    "sri-webpack-plugin": "~0.x"
+  }
+}
