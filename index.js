@@ -7,7 +7,7 @@ var CustomStats = require('webpack-custom-stats-patch');
 
 var DEFAULT_PARAMS = {
   customStatsKey: 'sprockets',
-  ignore: /\.(gz|html)$/,
+  ignore: (/\.(gz|html)$/i),
   assetsPath: path.join(process.cwd(), 'build', 'assets')
 };
 

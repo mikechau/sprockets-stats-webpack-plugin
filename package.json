@@ -4,7 +4,8 @@
   "description": "Add sprockets metadata to webpack stats for asset manifest generation.",
   "main": "index.js",
   "files": [
-    "index.js"
+    "index.js",
+    "lib"
   ],
   "scripts": {
     "test": "tape ./tests/index.js | ./node_modules/.bin/tf-spec",
@@ -34,7 +35,6 @@
     "eslint": "^1.10.3",
     "eslint-config-airbnb": "^2.1.1",
     "glob": "^6.0.1",
-    "proxyquire": "^1.7.3",
     "tape": "^4.2.2",
     "webpack": "^1.12.9"
   },
