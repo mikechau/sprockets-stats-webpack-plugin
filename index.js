@@ -35,7 +35,7 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
     compilation.plugin('optimize-assets', function(assets, callback) {
       Object.keys(assets).forEach(function(file) {
         var asset = assets[file];
-        var content;
+        var content = asset.source();
 
         sprockets[file] = {
           size: asset.size(),
