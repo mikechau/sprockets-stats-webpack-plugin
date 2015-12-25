@@ -40,5 +40,9 @@
   },
   "optionalDependencies": {
     "sri-webpack-plugin": "~0.x"
+  },
+  "dependencies": {
+    "crypto": "0.0.3",
+    "webpack-custom-stats-patch": "git+https://github.com/mikechau/webpack-custom-stats-patch.git"
   }
 }
