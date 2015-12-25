@@ -1,6 +1,6 @@
 {
   "name": "sprockets-stats-webpack-plugin",
-  "version": "0.0.0",
+  "version": "0.1.0",
   "description": "Add sprockets metadata to webpack stats for asset manifest generation.",
   "main": "index.js",
   "files": [
@@ -41,6 +41,6 @@
   "dependencies": {
     "crypto": "0.0.3",
     "walk": "^2.3.9",
-    "webpack-custom-stats-patch": "git+https://github.com/mikechau/webpack-custom-stats-patch.git"
+    "webpack-custom-stats-patch": "^0.1.0"
   }
 }
