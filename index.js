@@ -26,7 +26,7 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
         var asset;
         var content;
 
-        if (file.match(!blacklistRegex)) {
+        if (!file.match(blacklistRegex)) {
           asset = assets[file];
           content = asset.source();
 
