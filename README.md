@@ -1,5 +1,7 @@
 # sprockets-stats-data-webpack-plugin
 
+https://badge.fury.io/js/sprockets-stats-webpack-plugin.svg)](https://badge.fury.io/js/sprockets-stats-webpack-plugin)
+
 This is a webpack plugin which creates a mapping for generating a
 sprockets/rails compatible asset manifest. It injects the asset mapping into
 your webpack `stats` object. So you can continue choose to do as you like with
