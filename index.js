@@ -1,11 +1,14 @@
 'use strict';
 
+var walk = require('walk');
+var path = require('path');
 var crypto = require('crypto');
 var CustomStats = require('webpack-custom-stats-patch');
 
 var DEFAULT_PARAMS = {
   customStatsKey: 'sprockets',
-  ignore: /\.(gz|html)$/
+  ignore: /\.(gz|html)$/,
+  assetsPath: path.join(process.cwd(), 'build', 'assets')
 };
 
 function SprocketsStatsWebpackPlugin(options) {
@@ -13,9 +16,11 @@ function SprocketsStatsWebpackPlugin(options) {
 
   this._customStatsKey = options.customStatsKey || DEFAULT_PARAMS.customStatsKey;
   this._ignore = params.ignore || DEFAULT_PARAMS.ignore;
+  this._assetsPath = params.assetsPath || DEFAULT_PARAMS.assetsPath;
 }
 
 SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
+  var assetsPath = this._assetsPath;
   var customStatsKey = this._customStatsKey;
   var blacklistRegex = this._ignore;
   var sprockets = {};
@@ -43,10 +48,21 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
 
   compiler.plugin('after-emit', function(compilation, callback) {
     var stats = new CustomStats(compilation);
+    var walker = walk.walk(assetsPath);
 
-    stats.addCustomStat(customStatsKey, sprockets);
+    walker.on('file', function(root, fileStat, next) {
+      var filename = fileStat.name;
 
-    callback();
+      if (!filename.match(blacklistRegex) && sprockets[filename]) {
+        sprockets[filename].mtime = fileStat.mtime;
+      }
+      next();
+    });
+
+    walker.on('end', function() {
+      stats.addCustomStat(customStatsKey, sprockets);
+      callback();
+    });
   });
 };
 
