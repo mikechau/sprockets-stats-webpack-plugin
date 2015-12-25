@@ -47,6 +47,8 @@ var config = {
     })
  ]
 };
+
+module.exports = config;
 ```
 
 ## Configuration
