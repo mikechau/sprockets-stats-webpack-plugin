@@ -8,7 +8,7 @@
   ],
   "scripts": {
     "test": "tape ./tests/index.js | ./node_modules/.bin/tf-spec",
-    "lint": "eslint ./tests ./lib",
+    "lint": "eslint ./tests ./lib index.js",
     "check": "npm run lint && npm run test"
   },
   "repository": {
@@ -37,9 +37,6 @@
     "proxyquire": "^1.7.3",
     "tape": "^4.2.2",
     "webpack": "^1.12.9"
-  },
-  "optionalDependencies": {
-    "sri-webpack-plugin": "~0.x"
   },
   "dependencies": {
     "crypto": "0.0.3",
