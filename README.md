@@ -3,17 +3,15 @@
 [![npm version](https://badge.fury.io/js/sprockets-stats-webpack-plugin.svg)](https://badge.fury.io/js/sprockets-stats-webpack-plugin)
 
 This is a webpack plugin which creates a mapping for generating a
-sprockets/rails compatible asset manifest. It injects the asset mapping into
-your webpack `stats` object. So you can continue choose to do as you like with
-it in the stats plugin of your choice.
+sprockets/rails compatible asset manifest.
 
-This plugin does **NOT** generate any sort of `stats.json` file. It only adds a
-custom attribute to the `stats` object. In your stats plugin, you can call
-something like `stats.toJSON().rails`, to get the relevant rails mapping.
+This plugin can:
 
-This package includes a custom formatter for [Manifest Revision Webpack Plugin](https://github.com/nickjj/manifest-revision-webpack-plugin).
+- Write a compatible sprockets asset manifest.
+- Inject sprockets asset data into webpack's `stats.toJson()`, allowing you to
+  further consume the data with other stat plugins.
 
-## Setup
+## Install
 
 ```
 npm install sprockets-stats-webpack-plugin --save-dev
@@ -24,9 +22,7 @@ npm install sprockets-stats-webpack-plugin --save-dev
 ```js
 // Your webpack config
 var SriStatsPlugin = require('sri-stats-webpack-plugin');
-var SprocketsStatsWebpackPlugin = require('sprockets-stats-webpack-plugin');
-var sprocketsFormatter = require('sprockets-stats-webpack-plugin/formatters').ManifestRevisionFormat.formatter;
-var ManifestRevisionPlugin = require('manifest-revision-webpack-plugin');
+var SprocketsStatsPlugin = require('sprockets-stats-webpack-plugin');
 
 var config = {
   plugins: [
@@ -36,16 +32,14 @@ var config = {
       assetKey: 'integrity'
     }),
 
-    new SprocketsStatsWebpackPlugin({
+    new SprocketsStatsPlugin({
       customStatsKey: 'rails',
       ignore: (/\.(gz|html)$/i),
-      assetsPath: path.join(process.cwd(), 'build', 'assets')
-    }),
-
-    new ManifestRevisionPlugin(path.resolve(__dirname, 'build/sprockets-manifest.json'), {
-      rootAssetPath: './src/assets',
-      ignorePaths: ['/fonts', '/stylesheets'],
-      format: sprocketsFormatter.bind(null, 'rails') // required to tell the formatter what key to get data from
+      outputAssetsPath: path.join(__dirname, 'build', 'assets'),
+      sourceAssetsPath: path.join(__dirname, 'src', 'assets'),
+      saveAs: path.join(__dirname, 'build', 'sprockets-manifest.json'),
+      write: true,
+      resultsKey: '__RESULTS_SPROCKETS'
     })
  ]
 };
@@ -56,14 +50,23 @@ module.exports = config;
 ## Configuration
 
 - `customStatsKey` : This is the parent key the mapping is saved to. If you
-  plan to use this with the *SriWebpackPlugin* with the
-  *SprocketsManifestRevisionFormat*, you should make sure they use the same
-  keys. Default: `sprockets`.
+  plan to use this with the *SriWebpackPlugin*, you should make sure they use
+  the same keys.
+  Default: `sprockets`.
 - `ignore`: This is a regex to skip adding custom stats data for assets where
-  it would not be relevan to generate sprockets manifest data for. Default:
-  `(/\.(gz|html)$/i)`.
-- `assetsPath`: *Full* path to where the assets are built to. Default:
-  `path.join(process.cwd(), 'build', 'assets')`.
+  it would not be relevant to generate sprockets manifest data for.
+  Default: `(/\.(gz|html)$/i)`.
+- `outputAssetsPath`: *Absolute* path to where the assets are built to.
+  Default: `path.join(process.cwd(), 'build', 'assets')`.
+- `sourceAssetsPath`: *Absolute* path to where the source assets are located.
+  Helps the plugin build mappings to files like `images/picture.jpeg`.
+  Default: `path.join(process.cwd(), 'src', 'assets')`.
+- `saveAs`: *Absolute* path to where to save the output to.
+  Default: `path.join(process.cwd(), 'build', 'sprockets-manifest.json')`
+- `write`: Boolean option, of whether to write the stats file or not.
+  Default: `true`
+- `resultsKey`: Where to save the results to in webpack's `stats` object.
+  Default: `__RESULTS_SPROCKETS`
 
 ## License
 MIT.
