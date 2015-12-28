@@ -7,6 +7,7 @@ var path = require('path');
 var crypto = require('crypto');
 var CustomStats = require('webpack-custom-stats-patch');
 var fs = require('fs');
+var _merge = require('lodash.merge');
 
 var DEFAULT_PARAMS = {
   customStatsKey: 'sprockets',
@@ -111,27 +112,41 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
     });
 
     walker.on('end', function() {
+      var data = stats.toJson();
+
+      var assetData = data[customStatsKey] || {};
+
+      Object.keys(assetData).forEach(function(assetKey) {
+        sprockets[assetKey] = _merge({}, assetData[assetKey], sprockets[assetKey]);
+      });
+
+      var output = {
+        assets: {},
+        files: sprockets,
+        hash: data.hash,
+        publicPath: data.publicPath
+      };
+
+      Object.keys(output.files).forEach(function(filename) {
+        var asset = output.files[filename];
+        output.assets[asset.logical_path] = filename;
+      });
+
       stats.addCustomStat(customStatsKey, sprockets);
+      stats.addCustomStat(resultsKey, output);
+
+      compilation[resultsKey] = output;
+
       callback();
     });
   });
 
   compiler.plugin('done', function(stats) {
-    var data = stats.toJson();
-
-    var output = {
-      assets: {},
-      files: data[customStatsKey],
-      hash: data.hash,
-      publicPath: data.publicPath
-    };
-
-    Object.keys(output.files).forEach(function(filename) {
-      var asset = output.files[filename];
-      output.assets[asset.logical_path] = filename;
-    });
+    var output;
 
     if (writeEnabled) {
+      output = stats.compilation[resultsKey];
+
       fs.writeFile(savePath, JSON.stringify(output, null, '  '), function(err) {
         if (err) {
           console.error('Failed to write stats.', err);
@@ -139,9 +154,6 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
         }
       });
     }
-
-    stats.addCustomStat(customStatsKey, sprockets);
-    stats.addCustomStat(resultsKey, output);
   });
 };
 
