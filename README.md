@@ -54,7 +54,7 @@ this plugin. Order matters.
 ## Configuration
 
 - `customStatsKey` : This is the parent key the mapping is saved to. If you
-  plan to use this with the *SriWebpackPlugin*, you should make sure they use
+  plan to use this with the *SriStatsWebpackPlugin*, you should make sure they use
   the same keys.
   Default: `sprockets`.
 - `ignore`: This is a regex to skip adding custom stats data for assets where
