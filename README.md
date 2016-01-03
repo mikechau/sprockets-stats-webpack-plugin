@@ -1,4 +1,4 @@
-# sprockets-stats-data-webpack-plugin
+# sprockets-stats-webpack-plugin
 
 [![npm version](https://badge.fury.io/js/sprockets-stats-webpack-plugin.svg)](https://badge.fury.io/js/sprockets-stats-webpack-plugin)
 
