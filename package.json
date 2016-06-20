@@ -39,7 +39,6 @@
     "webpack": "^1.12.9"
   },
   "dependencies": {
-    "crypto": "0.0.3",
     "lodash.merge": "^3.3.2",
     "walk": "^2.3.9",
     "webpack-custom-stats-patch": "^0.2.0"
