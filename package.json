@@ -9,8 +9,8 @@
   ],
   "scripts": {
     "test": "ava",
-    "test:integration": "cd example && npm run reinstall && npm run build && npm test",
-    "test:all": "npm run test && npm run test:integration",
+    "test:integration": "cd example && npm run reinstall && npm run build",
+    "test:all": "npm run test && npm run test:integration && ava ./example/test/SprocketsManifest.test.js",
     "lint": "eslint ./test ./lib index.js",
     "check": "npm run lint && npm run test"
   },
