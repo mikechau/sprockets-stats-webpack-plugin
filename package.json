@@ -41,6 +41,6 @@
   "dependencies": {
     "lodash.merge": "^3.3.2",
     "walk": "^2.3.9",
-    "webpack-custom-stats-patch": "^0.2.0"
+    "webpack-custom-stats-patch": "^0.3.0"
   }
 }
