@@ -31,11 +31,6 @@
   },
   "homepage": "https://github.com/mikechau/sprockets-stats-webpack-plugin#readme",
   "devDependencies": {
-    "@tap-format/spec": "git+https://github.com/tap-format/spec.git",
-    "eslint": "^1.10.3",
-    "eslint-config-airbnb": "^2.1.1",
-    "glob": "^6.0.1",
-    "tape": "^4.2.2",
     "webpack": "^1.13.1"
   },
   "dependencies": {
