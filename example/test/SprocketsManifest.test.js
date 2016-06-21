@@ -13,3 +13,5 @@ Object.keys(actualFiles).forEach(function(filename) {
 });
 
 assert.deepEqual(actualManifest, expectedManifest, 'manifests not equal');
+
+console.log('Test passed!');
