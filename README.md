@@ -1,6 +1,6 @@
 # sprockets-stats-webpack-plugin
 
-[![npm version](https://badge.fury.io/js/sprockets-stats-webpack-plugin.svg)](https://badge.fury.io/js/sprockets-stats-webpack-plugin)
+[![npm version](https://badge.fury.io/js/sprockets-stats-webpack-plugin.svg)](https://badge.fury.io/js/sprockets-stats-webpack-plugin) [![Build Status](https://travis-ci.org/mikechau/sprockets-stats-webpack-plugin.svg?branch=master)](https://travis-ci.org/mikechau/sprockets-stats-webpack-plugin) [![Dependency Status](https://david-dm.org/mikechau/sprockets-stats-webpack-plugin.svg)](https://david-dm.org/mikechau/sprockets-stats-webpack-plugin) [![devDependency Status](https://david-dm.org/mikechau/sprockets-stats-webpack-plugin/dev-status.svg)](https://david-dm.org/mikechau/sprockets-stats-webpack-plugin#info=devDependencies)
 
 This is a webpack plugin which creates a mapping for generating a
 sprockets/rails compatible asset manifest.
