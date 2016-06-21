@@ -1,4 +1,4 @@
-/* eslint no-unused-vars: [2, { "args": "none" }] */
+/* eslint no-unused-vars: [2, { "args": "none" }], func-names: 0, no-underscore-dangle: 0 */
 
 'use strict';
 
@@ -113,14 +113,14 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
 
     walker.on('end', function() {
       var data = stats.toJson();
-
       var assetData = data[customStatsKey] || {};
+      var output;
 
       Object.keys(assetData).forEach(function(assetKey) {
         sprockets[assetKey] = _merge({}, assetData[assetKey], sprockets[assetKey]);
       });
 
-      var output = {
+      output = {
         assets: {},
         files: sprockets,
         hash: data.hash,
@@ -135,7 +135,7 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
       stats.addCustomStat(customStatsKey, sprockets);
       stats.addCustomStat(resultsKey, output);
 
-      compilation[resultsKey] = output;
+      compilation[resultsKey] = output; // eslint-disable-line no-param-reassign
 
       callback();
     });
@@ -149,7 +149,7 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
 
       fs.writeFile(savePath, JSON.stringify(output, null, '  '), function(err) {
         if (err) {
-          console.error('Failed to write stats.', err);
+          console.error('Failed to write stats.', err); // eslint-disable-line no-console
           throw err;
         }
       });
