@@ -1,4 +1,4 @@
-var assert = require('assert');
+var assert = require('power-assert');
 var actualManifest = require('../build/sprockets-manifest');
 var expectedManifest = require('./fixtures/sprockets-manifest');
 

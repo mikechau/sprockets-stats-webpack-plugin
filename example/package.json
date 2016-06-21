@@ -15,6 +15,7 @@
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.8.5",
+    "power-assert": "^1.4.1",
     "sprockets-stats-webpack-plugin": "file:../",
     "sri-stats-webpack-plugin": "^0.7.0",
     "style-loader": "^0.13.0",
