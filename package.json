@@ -8,8 +8,8 @@
     "lib"
   ],
   "scripts": {
-    "test": "tape ./tests/index.js | ./node_modules/.bin/tf-spec",
-    "lint": "eslint ./tests ./lib index.js",
+    "test": "ava",
+    "lint": "eslint ./test ./lib index.js",
     "check": "npm run lint && npm run test"
   },
   "repository": {
@@ -31,11 +31,23 @@
   },
   "homepage": "https://github.com/mikechau/sprockets-stats-webpack-plugin#readme",
   "devDependencies": {
+    "ava": "^0.15.2",
+    "eslint": "^2.13.1",
+    "eslint-config-mc": "^0.6.5",
+    "eslint-plugin-ava": "^2.5.0",
+    "eslint-plugin-import": "^1.8.1",
     "webpack": "^1.13.1"
   },
   "dependencies": {
     "lodash.merge": "^3.3.2",
     "walk": "^2.3.9",
     "webpack-custom-stats-patch": "^0.3.0"
+  },
+  "ava": {
+    "files": [
+      "test/**/*.js"
+    ],
+    "failFast": true,
+    "verbose": true
   }
 }
