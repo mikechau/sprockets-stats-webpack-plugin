@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
+    "test": "node test/SprocketsManifest.test.js",
     "build": "NODE_ENV=production webpack --config webpack.config.js --progress --profile --colors",
     "reinstall": "npm uninstall sprockets-stats-webpack-plugin && npm install"
   },

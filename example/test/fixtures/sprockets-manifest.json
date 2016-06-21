@@ -9,21 +9,21 @@
       "logical_path": "images/maru.jpg",
       "size": 48416,
       "digest": "6d18eff577039c3cd85aa19b82571845",
-      "mtime": "2016-06-21T08:02:14.179Z"
+      "mtime": "2016-06-21T07:42:09.623Z"
     },
     "main-26ae530c61260c72c117.js": {
       "integrity": "sha384-qNGoZqjcdOcN459HxyvHZ5iMTV7hA2akUt50kAsWfG2Kabx9EaFnyBagc7bKL/bn",
       "size": 424,
       "digest": "663749fe8d2219622d050e3ea2111ced",
       "logical_path": "main.js",
-      "mtime": "2016-06-21T08:02:14.179Z"
+      "mtime": "2016-06-21T07:42:09.623Z"
     },
     "main-f170406bbf80db11a0f7afdee504fa52.css": {
       "integrity": "sha384-lkGaxwmX5qUkXJGM8wX4uMLH+AO5QZKlhbZdtQS0niV3w5EeOnJ0HsNDSEcvFFu1",
       "size": 21,
       "digest": "f170406bbf80db11a0f7afdee504fa52",
       "logical_path": "main.css",
-      "mtime": "2016-06-21T08:02:14.179Z"
+      "mtime": "2016-06-21T07:42:09.623Z"
     }
   },
   "hash": "26ae530c61260c72c117",
