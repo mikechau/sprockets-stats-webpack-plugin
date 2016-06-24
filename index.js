@@ -8,6 +8,7 @@ var crypto = require('crypto');
 var CustomStats = require('webpack-custom-stats-patch');
 var fs = require('fs');
 var _merge = require('lodash.merge');
+var loaderUtils = require('loader-utils');
 
 var DEFAULT_PARAMS = {
   customStatsKey: 'sprockets',
@@ -16,7 +17,8 @@ var DEFAULT_PARAMS = {
   sourceAssetsPath: path.join(process.cwd(), 'src', 'assets'),
   saveAs: path.join(process.cwd(), 'build', 'sprockets-manifest.json'),
   write: true,
-  resultsKey: '__RESULTS_SPROCKETS'
+  resultsKey: '__RESULTS_SPROCKETS',
+  mappings: []
 };
 
 function SprocketsStatsWebpackPlugin(options) {
@@ -29,6 +31,7 @@ function SprocketsStatsWebpackPlugin(options) {
   this._saveAs = params.saveAs || DEFAULT_PARAMS.saveAs;
   this._write = ((params.write === undefined) ? DEFAULT_PARAMS.write : params.write);
   this._resultsKey = params.resultsKey || DEFAULT_PARAMS.resultsKey;
+  this._mappings = params.mappings || DEFAULT_PARAMS.mappings;
 }
 
 SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
@@ -39,6 +42,7 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
   var savePath = this._saveAs;
   var writeEnabled = this._write;
   var resultsKey = this._resultsKey;
+  var mappings = this._mappings;
   var sprockets = {};
 
   compiler.plugin('this-compilation', function(compilation) {
@@ -67,8 +71,26 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
     });
 
     compilation.plugin('module-asset', function(mod, filename) {
-      var logicalPath = path.relative(sourceAssetsPath, mod.userRequest);
+      var logicalPath = "";
       var filenameKey = Object.keys(mod.assets).slice(-1)[0];
+
+      if (mappings.length > 0) {
+        // loaderUtils.interpolatePath takes a loader context but only uses the
+        // resourcePath property, so let's create a stub
+        var loaderContextStub = {resourcePath: mod.userRequest};
+
+        for (let mapping of mappings) {
+          var re = new RegExp(mapping.test);
+          var match = mod.userRequest.match(re);
+
+          if(match) {
+            logicalPath = loaderUtils.interpolateName(loaderContextStub, mapping.logicalPath, {context: mapping.context || sourceAssetsPath});
+            break;
+          }
+        }
+      } else if (sourceAssetsPath && outputAssetsPath) {
+        logicalPath = path.relative(sourceAssetsPath, mod.userRequest);
+      }
 
       sprockets[filenameKey] = {
         logical_path: logicalPath
