@@ -82,24 +82,6 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
     var walker = walk.walk(outputAssetsPath);
     var assets = stats.toJson().assets;
 
-    assets.forEach(function(asset) {
-      var hashedAssetName = asset.name;
-      var assetName;
-      var assetExt;
-      var filename;
-
-      if ((asset.chunks && asset.chunks.length > 0) &&
-          (asset.chunkNames && asset.chunkNames.length > 0)
-      ) {
-        assetName = asset.chunkNames.slice(-1)[0];
-        assetExt = hashedAssetName.split('.').pop();
-
-        filename = assetName + '.' + assetExt;
-
-        sprockets[hashedAssetName].logical_path = filename;
-      }
-    });
-
     walker.on('file', function(rootPath, fileStat, next) {
       var fullPath = path.join(rootPath, fileStat.name);
       var filename = (path.relative(outputPath, fullPath));
