@@ -84,7 +84,14 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
           var match = mod.userRequest.match(re);
 
           if(match) {
-            logicalPath = loaderUtils.interpolateName(loaderContextStub, mapping.logicalPath, {context: mapping.context || sourceAssetsPath});
+            logicalPath = loaderUtils.interpolateName(
+              loaderContextStub,
+              mapping.logicalPath,
+              {
+                context: mapping.context || sourceAssetsPath,
+                content: mod.assets[filename]._value
+              }
+            );
             break;
           }
         }
