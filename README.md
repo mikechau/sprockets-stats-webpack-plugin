@@ -83,10 +83,11 @@ this plugin. Order matters.
   Default: `[]`
   - `test`: Regex for matching source files using their absolute paths. 
   - `logicalPath`: Pattern using Webpack placeholders for renaming the logical
-    path. Note: `[path]` requires a context (see next).
+    path.
   - `context`: *Absolute* path to a context directory for the sources matched
     by this mapping. Use in combination with the `[path]` placeholder in
     `logicalPath` to create logical paths relative to an arbitrary directory.
+    Default: `sourceAssetsPath`
 - `saveAs`: *Absolute* path to where to save the output to.
   Default: `path.join(process.cwd(), 'build', 'sprockets-manifest.json')`
 - `write`: Boolean option, of whether to write the stats file or not.
