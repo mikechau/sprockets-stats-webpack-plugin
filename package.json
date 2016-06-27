@@ -9,9 +9,9 @@
   ],
   "scripts": {
     "test": "ava",
-    "build:integration": "cd example && npm run reinstall && npm run build",
-    "test:all": "npm run test && npm run build:integration && ava ./example/test/SprocketsManifest.test.js",
-    "test:ci": "npm run test && ava ./example/test/SprocketsManifest.test.js",
+    "build:integration": "cd examples/01_basic && npm run reinstall && npm run build",
+    "test:all": "npm run test && npm run build:integration && ava ./examples/01_basic/test/SprocketsManifest.test.js",
+    "test:ci": "npm run test && ava ./examples/01_basic/test/SprocketsManifest.test.js",
     "lint": "eslint ./test ./lib index.js",
     "check": "npm run lint && npm run test"
   },

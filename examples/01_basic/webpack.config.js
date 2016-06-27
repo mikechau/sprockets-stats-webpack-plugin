@@ -21,11 +21,11 @@ module.exports = {
   },
 
   "output": {
-    "path": path.join(PROJECT_DIR, "build", "assets", "[hash]"),
-    "publicPath": "/assets/[hash]/",
-    "filename": "[name]-[hash].js",
-    "chunkFilename": "chunk-[id].[name]-[hash].js",
-    "sourceMapFilename": "debug/[file]-[hash].id-[id].map",
+    "path": path.join(PROJECT_DIR, "build", "assets", "01-test"),
+    "publicPath": "/assets/01-test/",
+    "filename": "[name]-01-test.js",
+    "chunkFilename": "chunk-[id].[name]-01-test.js",
+    "sourceMapFilename": "debug/[file]-01-test.map",
     "pathInfo": "false"
   },
 
@@ -51,7 +51,7 @@ module.exports = {
       },
       {
         "test": /\.jpg$/,
-        "loader": "url?limit=10&name=images/[name]-[hash].[ext]"
+        "loader": "url?limit=10&name=images/[name]-01-test.[ext]"
       }
     ]
   },
@@ -70,7 +70,7 @@ module.exports = {
     }),
     new webpack.optimize.OccurenceOrderPlugin(),
     new webpack.optimize.AggressiveMergingPlugin(),
-    new ExtractTextPlugin("[name]-[contenthash].css"),
+    new ExtractTextPlugin("[name]-01-test.css"),
     new SriStatsPlugin({
       customStatsKey: "rails"
     }),
