@@ -38,6 +38,18 @@ var config = {
       ignore: (/\.(gz|html)$/i),
       outputAssetsPath: path.join(__dirname, 'build', 'assets'),
       sourceAssetsPath: path.join(__dirname, 'src', 'assets'),
+      mappings: [
+        {
+          test: 'src\/assets\/images',
+          logicalPath: '[path][name].[ext]',
+          context: path.join(process.cwd(), 'src', 'assets', 'images')
+        },
+        {
+          test: 'src\/assets\/videos',
+          logicalPath: '[path][name].[ext]',
+          context: path.join(process.cwd(), 'src', 'assets', 'videos')
+        }
+      ],
       saveAs: path.join(__dirname, 'build', 'sprockets-manifest.json'),
       write: true,
       resultsKey: '__RESULTS_SPROCKETS'
@@ -65,6 +77,17 @@ this plugin. Order matters.
 - `sourceAssetsPath`: *Absolute* path to where the source assets are located.
   Helps the plugin build mappings to files like `images/picture.jpeg`.
   Default: `path.join(process.cwd(), 'src', 'assets')`.
+- `mappings`: (Optional) Array of mapping objects for customizing the logical
+  path. Note: If you provide mappings, a source file will be included in the
+  manifest only if its absolute path matches a regex in one of the mappings. 
+  Default: `[]`
+  - `test`: Regex for matching source files using their absolute paths. 
+  - `logicalPath`: Pattern using Webpack placeholders for renaming the logical
+    path.
+  - `context`: *Absolute* path to a context directory for the sources matched
+    by this mapping. Use in combination with the `[path]` placeholder in
+    `logicalPath` to create logical paths relative to an arbitrary directory.
+    Default: `sourceAssetsPath`
 - `saveAs`: *Absolute* path to where to save the output to.
   Default: `path.join(process.cwd(), 'build', 'sprockets-manifest.json')`
 - `write`: Boolean option, of whether to write the stats file or not.
