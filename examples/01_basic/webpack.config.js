@@ -59,6 +59,8 @@ module.exports = {
   "plugins": [
     new webpack.NoErrorsPlugin(),
     new CleanPlugin(["build"]),
+    new webpack.optimize.OccurenceOrderPlugin(),
+    new webpack.optimize.AggressiveMergingPlugin(),
     new webpack.optimize.DedupePlugin(),
     new webpack.optimize.UglifyJsPlugin({
       output: {
@@ -68,8 +70,6 @@ module.exports = {
         warnings: false
       }
     }),
-    new webpack.optimize.OccurenceOrderPlugin(),
-    new webpack.optimize.AggressiveMergingPlugin(),
     new ExtractTextPlugin("[name]-01-test.css"),
     new SriStatsPlugin({
       customStatsKey: "rails"
