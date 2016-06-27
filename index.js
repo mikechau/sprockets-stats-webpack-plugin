@@ -77,13 +77,13 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
       if (mappings.length > 0) {
         // loaderUtils.interpolatePath takes a loader context but only uses the
         // resourcePath property, so let's create a stub
-        var loaderContextStub = {resourcePath: mod.userRequest};
+        var loaderContextStub = { resourcePath: mod.userRequest };
 
-        for (let mapping of mappings) {
+        for (var i = 0; i < mappings.length; i++) {
           var re = new RegExp(mapping.test);
           var match = mod.userRequest.match(re);
 
-          if(match) {
+          if (match) {
             logicalPath = loaderUtils.interpolateName(
               loaderContextStub,
               mapping.logicalPath,
