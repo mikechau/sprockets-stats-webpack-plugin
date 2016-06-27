@@ -71,17 +71,23 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
     });
 
     compilation.plugin('module-asset', function(mod, filename) {
-      var logicalPath = "";
+      var logicalPath = '';
       var filenameKey = Object.keys(mod.assets).slice(-1)[0];
 
       if (mappings.length > 0) {
+        /* eslint-disable vars-on-top */
         // loaderUtils.interpolatePath takes a loader context but only uses the
         // resourcePath property, so let's create a stub
         var loaderContextStub = { resourcePath: mod.userRequest };
+        var i;
+        /* eslint-enable vars-on-top */
 
-        for (var i = 0; i < mappings.length; i++) {
+        for (i = 0; i < mappings.length; i++) {
+          /* eslint-disable vars-on-top */
+          var mapping = mappings[i];
           var re = new RegExp(mapping.test);
           var match = mod.userRequest.match(re);
+          /* eslint-enable vars-on-top */
 
           if (match) {
             logicalPath = loaderUtils.interpolateName(
@@ -158,6 +164,7 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
 
       Object.keys(output.files).forEach(function(filename) {
         var asset = output.files[filename];
+
         output.assets[asset.logical_path] = filename;
       });
 
