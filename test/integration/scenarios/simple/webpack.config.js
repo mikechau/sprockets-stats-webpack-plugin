@@ -8,8 +8,18 @@ var RemoveWebpackPlugin = require("remove-webpack-plugin");
 var ExtractTextPlugin = require("extract-text-webpack-plugin");
 var SriStatsPlugin = require("sri-stats-webpack-plugin");
 var SprocketsStatsPlugin = require("../../../../");
+var merge = require('lodash.merge');
 
-module.exports = function(webpackDir) {
+module.exports = function(webpackDir, params) {
+  var opts = merge({
+    sprockets: {
+      write: false
+    },
+    sri: {
+      runAfterEmit: false
+    }
+  }, params);
+
   return {
     "devtool": "false",
 
@@ -57,7 +67,11 @@ module.exports = function(webpackDir) {
 
     "plugins": [
       new webpack.NoErrorsPlugin(),
-      new RemoveWebpackPlugin(path.resolve(webpackDir, "build", "sprockets-manifest.json")),
+      function() {
+        if (opts.sprockets.write) {
+          return new RemoveWebpackPlugin(path.resolve(webpackDir, "build", "sprockets-manifest.json"));
+        }
+      },
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.optimize.AggressiveMergingPlugin(),
       new webpack.optimize.DedupePlugin(),
@@ -71,11 +85,13 @@ module.exports = function(webpackDir) {
       }),
       new ExtractTextPlugin("[name]-01-test.css"),
       new SriStatsPlugin({
-        customStatsKey: "rails"
+        customStatsKey: "rails",
+        runAfterEmit: opts.sri.runAfterEmit
       }),
       new SprocketsStatsPlugin({
         customStatsKey: "rails",
-        saveAs: path.resolve(webpackDir, "build", "sprockets-manifest.json")
+        saveAs: path.resolve(webpackDir, "build", "sprockets-manifest.json"),
+        write: opts.sprockets.write
       })
     ]
   };

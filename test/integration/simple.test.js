@@ -4,15 +4,17 @@ var test = require('ava');
 var webpack = require('webpack');
 var path = require('path');
 var MemoryFS = require('memory-fs');
+var fs = require('fs');
 
 var config = require('./scenarios/simple/webpack.config');
+var tmpDir = path.resolve(__dirname, '../../tmp/01-test');
 
-test.cb('generated sprockets manifest matches expected', function(t) {
-  var fs = new MemoryFS();
-  var tmpDir = { name: path.resolve(__dirname, '../../tmp/01-test') };
+function buildCompiler(t, fs, opts, callback) {
+  var compilier = webpack(config(tmpDir, opts));
 
-  var compilier = webpack(config(tmpDir.name));
-  compilier.outputFileSystem = fs;
+  if (fs) {
+    compilier.outputFileSystem = fs;
+  }
 
   compilier.run(function(err, stats) {
     if (err) {
@@ -29,6 +31,49 @@ test.cb('generated sprockets manifest matches expected', function(t) {
       return t.fail(jsonStats.warnings);
     }
 
-    t.end();
+    callback(jsonStats, stats);
+  });
+}
+
+test.cb('generates the expected stats', function(t) {
+  var expectedManifest = require('./scenarios/simple/fixtures/01-sprockets-manifest');
+  var counter = 0;
+
+  [true, false].forEach(function(runAfterEmit) {
+    var memFs = new MemoryFS();
+
+    buildCompiler(t, memFs, {
+      sprockets: {
+        write: false
+      },
+      sri: {
+        runAfterEmit: runAfterEmit
+      }
+    }, function(jsonStats) {
+      var sprockets = jsonStats.__RESULTS_SPROCKETS;
+      t.deepEqual(sprockets, expectedManifest);
+
+      counter++;
+
+      if (counter == 2) {
+        t.end();
+      }
+    });
+  });
+});
+
+test.cb('writes sprockets-manifest.json', function(t) {
+  var memFs = new MemoryFS();
+
+  buildCompiler(t, memFs, {
+    sprockets: {
+      write: true
+    },
+    sri: {
+      runAfterEmit: false
+    }
+  }, function() {
+    var actualManifestPath = path.join(tmpDir, 'build', 'sprockets-manifest.json');
+    fs.stat(actualManifestPath, t.end);
   });
 });
