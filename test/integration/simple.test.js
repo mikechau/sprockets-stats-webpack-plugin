@@ -38,6 +38,9 @@ function buildCompiler(t, fsys, opts, callback) {
 test.cb('generates the expected stats', function(t) {
   // eslint-disable-next-line global-require
   var expectedManifest = require('./scenarios/simple/fixtures/01-sprockets-manifest');
+
+  expectedManifest.hash = 'test';
+
   var counter = 0;
 
   [true, false].forEach(function(runAfterEmit) {
@@ -52,6 +55,8 @@ test.cb('generates the expected stats', function(t) {
       }
     }, function(jsonStats) {
       var sprockets = jsonStats.__RESULTS_SPROCKETS; // eslint-disable-line no-underscore-dangle
+      sprockets.hash = 'test';
+
       t.deepEqual(sprockets, expectedManifest);
 
       counter++;
