@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "NODE_ENV=production webpack --config webpack.config.js --progress --profile --colors",
+    "build": "npm run reinstall && NODE_ENV=production webpack --config webpack.config.js --progress --profile --colors",
     "reinstall": "npm uninstall sprockets-stats-webpack-plugin && npm install"
   },
   "author": "",
