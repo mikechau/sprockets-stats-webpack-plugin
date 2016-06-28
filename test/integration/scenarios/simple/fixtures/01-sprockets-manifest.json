@@ -1,12 +1,12 @@
 {
   "assets": {
-    "../../scenarios/simple/src/assets/images/maru.jpg": "images/maru-01-test.jpg",
+    "images/maru.jpg": "images/maru-01-test.jpg",
     "main.js": "main-01-test.js",
     "main.css": "main-01-test.css"
   },
   "files": {
     "images/maru-01-test.jpg": {
-      "logical_path": "../../scenarios/simple/src/assets/images/maru.jpg",
+      "logical_path": "images/maru.jpg",
       "size": 48416,
       "digest": "6d18eff577039c3cd85aa19b82571845"
     },

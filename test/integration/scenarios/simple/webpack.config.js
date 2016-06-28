@@ -91,7 +91,9 @@ module.exports = function(webpackDir, params) {
       new SprocketsStatsPlugin({
         customStatsKey: "rails",
         saveAs: path.resolve(webpackDir, "build", "sprockets-manifest.json"),
-        write: opts.sprockets.write
+        write: opts.sprockets.write,
+        outputAssetsPath: path.resolve(webpackDir, "build", "assets", "01-test"),
+        sourceAssetsPath: path.resolve(__dirname, "./src", "assets")
       })
     ]
   };
