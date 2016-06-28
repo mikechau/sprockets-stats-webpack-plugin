@@ -2,3 +2,5 @@ node_modules
 *.log
 *.swp
 examples/*/build/*
+/tmp/*/build/*
+!/tmp/*/build/.keep
