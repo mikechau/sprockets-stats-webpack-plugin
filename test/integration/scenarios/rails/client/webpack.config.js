@@ -62,6 +62,10 @@ module.exports = function(webpackDir, params) {
         {
           "test": /\.jpg$/,
           "loader": "url?limit=10&name=images/[name]-02-test.[ext]"
+        },
+        {
+          "test": /\.eot$/,
+          "loader": "url?limit=10&name=fonts/[name]-02-test.[ext]"
         }
       ]
     },
