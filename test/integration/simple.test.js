@@ -9,11 +9,11 @@ var fs = require('fs');
 var config = require('./scenarios/simple/webpack.config');
 var tmpDir = path.resolve(__dirname, '../../tmp/01-test');
 
-function buildCompiler(t, fs, opts, callback) {
+function buildCompiler(t, fsys, opts, callback) {
   var compilier = webpack(config(tmpDir, opts));
 
-  if (fs) {
-    compilier.outputFileSystem = fs;
+  if (fsys) {
+    compilier.outputFileSystem = fsys;
   }
 
   compilier.run(function(err, stats) {
@@ -36,6 +36,7 @@ function buildCompiler(t, fs, opts, callback) {
 }
 
 test.cb('generates the expected stats', function(t) {
+  // eslint-disable-next-line global-require
   var expectedManifest = require('./scenarios/simple/fixtures/01-sprockets-manifest');
   var counter = 0;
 
@@ -50,12 +51,12 @@ test.cb('generates the expected stats', function(t) {
         runAfterEmit: runAfterEmit
       }
     }, function(jsonStats) {
-      var sprockets = jsonStats.__RESULTS_SPROCKETS;
+      var sprockets = jsonStats.__RESULTS_SPROCKETS; // eslint-disable-line no-underscore-dangle
       t.deepEqual(sprockets, expectedManifest);
 
       counter++;
 
-      if (counter == 2) {
+      if (counter === 2) {
         t.end();
       }
     });
