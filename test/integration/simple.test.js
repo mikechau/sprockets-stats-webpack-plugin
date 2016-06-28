@@ -3,7 +3,7 @@
 var test = require('ava');
 var webpack = require('webpack');
 var path = require('path');
-var MemoryFS = require("memory-fs");
+var MemoryFS = require('memory-fs');
 
 var config = require('./scenarios/simple/webpack.config');
 
@@ -19,15 +19,15 @@ test.cb('generated sprockets manifest matches expected', function(t) {
       t.fail(err);
     }
 
-    var jsonStats = stats.toJson();
+    var jsonStats = stats.toJson(); // eslint-disable-line vars-on-top
 
-    if(jsonStats.errors.length > 0) {
+    if (jsonStats.errors.length > 0) {
       return t.fail(jsonStats.errors);
     }
 
-    if(jsonStats.warnings.length > 0) {
-        return t.fail(jsonStats.warnings)
-    };
+    if (jsonStats.warnings.length > 0) {
+      return t.fail(jsonStats.warnings);
+    }
 
     t.end();
   });
