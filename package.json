@@ -42,7 +42,7 @@
     "webpack": "^1.13.1"
   },
   "dependencies": {
-    "loader-utils": "^0.2.15",
+    "loader-utils": "^1.0.1",
     "lodash.merge": "^4.4.0",
     "walk": "^2.3.9",
     "webpack-custom-stats-patch": "^0.3.0"
