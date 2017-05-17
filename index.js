@@ -71,19 +71,25 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
     });
 
     compilation.plugin('module-asset', function(mod, filename) {
-      var logicalPath = "";
+      var logicalPath = '';
       var filenameKey = Object.keys(mod.assets).slice(-1)[0];
 
       if (mappings.length > 0) {
+        /* eslint-disable vars-on-top */
         // loaderUtils.interpolatePath takes a loader context but only uses the
         // resourcePath property, so let's create a stub
-        var loaderContextStub = {resourcePath: mod.userRequest};
+        var loaderContextStub = { resourcePath: mod.userRequest };
+        var i;
+        /* eslint-enable vars-on-top */
 
-        for (let mapping of mappings) {
+        for (i = 0; i < mappings.length; i++) {
+          /* eslint-disable vars-on-top */
+          var mapping = mappings[i];
           var re = new RegExp(mapping.test);
           var match = mod.userRequest.match(re);
+          /* eslint-enable vars-on-top */
 
-          if(match) {
+          if (match) {
             logicalPath = loaderUtils.interpolateName(
               loaderContextStub,
               mapping.logicalPath,
@@ -110,6 +116,24 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
     var stats = new CustomStats(compilation);
     var walker = walk.walk(outputAssetsPath);
     var assets = stats.toJson().assets;
+
+    assets.forEach(function(asset) {
+      var hashedAssetName = asset.name;
+      var assetName;
+      var assetExt;
+      var filename;
+
+      if ((asset.chunks && asset.chunks.length > 0) &&
+          (asset.chunkNames && asset.chunkNames.length > 0)
+      ) {
+        assetName = asset.chunkNames.slice(-1)[0];
+        assetExt = hashedAssetName.split('.').pop();
+
+        filename = assetName + '.' + assetExt;
+
+        sprockets[hashedAssetName].logical_path = filename;
+      }
+    });
 
     walker.on('file', function(rootPath, fileStat, next) {
       var fullPath = path.join(rootPath, fileStat.name);
@@ -140,6 +164,7 @@ SprocketsStatsWebpackPlugin.prototype.apply = function(compiler) {
 
       Object.keys(output.files).forEach(function(filename) {
         var asset = output.files[filename];
+
         output.assets[asset.logical_path] = filename;
       });
 

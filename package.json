@@ -9,9 +9,6 @@
   ],
   "scripts": {
     "test": "ava",
-    "build:integration": "cd example && npm run reinstall && npm run build",
-    "test:all": "npm run test && npm run build:integration && ava ./example/test/SprocketsManifest.test.js",
-    "test:ci": "npm run test && ava ./example/test/SprocketsManifest.test.js",
     "lint": "eslint ./test ./lib index.js",
     "check": "npm run lint && npm run test"
   },
@@ -35,10 +32,18 @@
   "homepage": "https://github.com/mikechau/sprockets-stats-webpack-plugin#readme",
   "devDependencies": {
     "ava": "^0.15.2",
+    "css-loader": "^0.23.1",
     "eslint": "^2.13.1",
     "eslint-config-mc": "^0.6.5",
     "eslint-plugin-ava": "^2.5.0",
     "eslint-plugin-import": "^1.8.1",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "memory-fs": "^0.3.0",
+    "remove-webpack-plugin": "^1.1.1",
+    "sri-stats-webpack-plugin": "^0.7.3",
+    "style-loader": "^0.13.1",
+    "url-loader": "^0.5.7",
     "webpack": "^1.13.1"
   },
   "dependencies": {
@@ -49,7 +54,8 @@
   },
   "ava": {
     "files": [
-      "test/**/*.js"
+      "test/**/*.test.js",
+      "!test/integration/scenarios/**/*"
     ],
     "failFast": true,
     "verbose": true

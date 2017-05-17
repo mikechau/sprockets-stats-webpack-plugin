@@ -4,7 +4,7 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "build": "NODE_ENV=production webpack --config webpack.config.js --progress --profile --colors",
+    "build": "npm run reinstall && NODE_ENV=production webpack --config webpack.config.js --progress --profile --colors",
     "reinstall": "npm uninstall sprockets-stats-webpack-plugin && npm install"
   },
   "author": "",
@@ -14,7 +14,7 @@
     "css-loader": "^0.23.1",
     "extract-text-webpack-plugin": "^0.9.1",
     "file-loader": "^0.8.5",
-    "sprockets-stats-webpack-plugin": "file:../",
+    "sprockets-stats-webpack-plugin": "file:../../",
     "sri-stats-webpack-plugin": "^0.7.0",
     "style-loader": "^0.13.0",
     "url-loader": "^0.5.7",

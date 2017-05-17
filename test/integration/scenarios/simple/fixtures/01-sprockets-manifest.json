@@ -1,0 +1,28 @@
+{
+  "assets": {
+    "images/maru.jpg": "images/maru-01-test.jpg",
+    "main.js": "main-01-test.js",
+    "main.css": "main-01-test.css"
+  },
+  "files": {
+    "images/maru-01-test.jpg": {
+      "logical_path": "images/maru.jpg",
+      "size": 48416,
+      "digest": "6d18eff577039c3cd85aa19b82571845"
+    },
+    "main-01-test.js": {
+      "integrity": "sha384-9WCBflot2kBNysprVPr2Cspm01ivh4eg4OOLQPBOFPA/V96H3eWOFreCuQedp892",
+      "size": 386,
+      "digest": "bfe15df886795b3cfdba39725fe0761a",
+      "logical_path": "main.js"
+    },
+    "main-01-test.css": {
+      "integrity": "sha384-lkGaxwmX5qUkXJGM8wX4uMLH+AO5QZKlhbZdtQS0niV3w5EeOnJ0HsNDSEcvFFu1",
+      "size": 21,
+      "digest": "f170406bbf80db11a0f7afdee504fa52",
+      "logical_path": "main.css"
+    }
+  },
+  "hash": "85acf47b215574899a78",
+  "publicPath": "/assets/01-test/"
+}

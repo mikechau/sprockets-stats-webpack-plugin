@@ -12,8 +12,10 @@ test('generated sprockets manifest matches expected', function(t) {
 
     t.truthy(Date.parse(file.mtime), 'not a valid date');
 
-    file.mtime = '2016-06-21T07:42:09.623Z';
+    file.mtime = '2016-06-27T20:53:11.389Z';
   });
+
+  actualManifest.hash = 'test';
 
   t.deepEqual(actualManifest, expectedManifest, 'manifests not equal');
 });
